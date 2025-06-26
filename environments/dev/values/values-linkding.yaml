@@ -1,0 +1,46 @@
+# Linkding Bookmark Manager Values (using bjw-s app-template)
+controllers:
+  main:
+    replicas: 1
+    containers:
+      main:
+        image:
+          repository: sissbruecker/linkding
+          tag: latest
+        env:
+          TZ: America/New_York
+          LD_SUPERUSER_NAME: admin
+          LD_SUPERUSER_PASSWORD: admin123
+          LD_DISABLE_BACKGROUND_TASKS: "False"
+          LD_DISABLE_URL_VALIDATION: "False"
+          LD_REQUEST_TIMEOUT: "60"
+          LD_DB_ENGINE: postgresql
+          LD_DB_DATABASE: linkding
+          LD_DB_USER: linkding
+          LD_DB_PASSWORD: linkding123
+          LD_DB_HOST: postgresql.databases.svc.cluster.local
+          LD_DB_PORT: "5432"
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 250m
+          limits:
+            memory: 512Mi
+            cpu: 500m
+
+service:
+  main:
+    ports:
+      http:
+        port: 9090
+
+persistence:
+  data:
+    enabled: true
+    size: 1Gi
+    globalMounts:
+      - path: /etc/linkding/data
+
+ingress:
+  main:
+    enabled: false  # We'll use Istio Gateway

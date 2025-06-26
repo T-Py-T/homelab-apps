@@ -1,0 +1,57 @@
+# Wallabag Read-later Service Values
+image:
+  repository: wallabag/wallabag
+  tag: latest
+
+service:
+  main:
+    ports:
+      http:
+        port: 80
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 250m
+  limits:
+    memory: 512Mi
+    cpu: 500m
+
+persistence:
+  config:
+    enabled: true
+    size: 5Gi
+    mountPath: /var/www/wallabag/data
+  images:
+    enabled: true
+    size: 5Gi
+    mountPath: /var/www/wallabag/web/assets/images
+
+env:
+  SYMFONY_ENV: prod
+  DOMAIN_NAME: "http://wallabag.dev.cluster.local"
+  FOSUSER_REGISTRATION: "false"
+  FOSUSER_CONFIRMATION: "false"
+  
+  # Database configuration
+  POSTGRES_DB: wallabag
+  POSTGRES_USER: wallabag
+  POSTGRES_PASSWORD: wallabag123
+  POSTGRES_HOST: postgresql.databases.svc.cluster.local
+  POSTGRES_PORT: "5432"
+  
+  # Redis configuration  
+  REDIS_HOST: redis-master.cache.svc.cluster.local
+  REDIS_PORT: "6379"
+  REDIS_PASSWORD: redis123
+
+ingress:
+  main:
+    enabled: false  # We'll use Istio Gateway
+
+# Dependencies - will use external services
+postgresql:
+  enabled: false
+  
+redis:
+  enabled: false

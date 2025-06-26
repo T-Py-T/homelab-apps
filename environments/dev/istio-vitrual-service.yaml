@@ -1,0 +1,195 @@
+# Istio Gateways and VirtualServices for Homelab Applications
+
+# Homepage Dashboard Gateway
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: homepage-gateway
+  namespace: dashboard
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - homepage.dev.cluster.local
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: homepage-vs
+  namespace: dashboard
+spec:
+  hosts:
+  - homepage.dev.cluster.local
+  gateways:
+  - homepage-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: homepage.dashboard.svc.cluster.local
+        port:
+          number: 3000
+
+---
+# n8n Workflow Automation Gateway
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: n8n-gateway
+  namespace: automation
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - n8n.dev.cluster.local
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: n8n-vs
+  namespace: automation
+spec:
+  hosts:
+  - n8n.dev.cluster.local
+  gateways:
+  - n8n-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: n8n.automation.svc.cluster.local
+        port:
+          number: 5678
+
+---
+# Wallabag Gateway
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: wallabag-gateway
+  namespace: reading
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - wallabag.dev.cluster.local
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: wallabag-vs
+  namespace: reading
+spec:
+  hosts:
+  - wallabag.dev.cluster.local
+  gateways:
+  - wallabag-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: wallabag.reading.svc.cluster.local
+        port:
+          number: 80
+
+---
+# CommaFeed RSS Reader Gateway
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: commafeed-gateway
+  namespace: rss
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - commafeed.dev.cluster.local
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: commafeed-vs
+  namespace: rss
+spec:
+  hosts:
+  - commafeed.dev.cluster.local
+  gateways:
+  - commafeed-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: commafeed.rss.svc.cluster.local
+        port:
+          number: 8082
+
+---
+# Linkding Bookmark Manager Gateway
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: linkding-gateway
+  namespace: bookmarks
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - linkding.dev.cluster.local
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: linkding-vs
+  namespace: bookmarks
+spec:
+  hosts:
+  - linkding.dev.cluster.local
+  gateways:
+  - linkding-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: linkding.bookmarks.svc.cluster.local
+        port:
+          number: 9090

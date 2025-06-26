@@ -1,0 +1,45 @@
+# PostgreSQL Database Values (shared by multiple apps)
+auth:
+  postgresPassword: postgres123
+  
+  # Create databases for different applications
+  database: postgres
+
+primary:
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 250m
+    limits:
+      memory: 1Gi
+      cpu: 500m
+  
+  persistence:
+    enabled: true
+    size: 20Gi
+
+  # Initialize multiple databases
+  initdb:
+    scripts:
+      01-create-databases.sql: |
+        CREATE DATABASE wallabag;
+        CREATE USER wallabag WITH PASSWORD 'wallabag123';
+        GRANT ALL PRIVILEGES ON DATABASE wallabag TO wallabag;
+        
+        CREATE DATABASE n8n;
+        CREATE USER n8n WITH PASSWORD 'n8n123';
+        GRANT ALL PRIVILEGES ON DATABASE n8n TO n8n;
+        
+        CREATE DATABASE linkding;
+        CREATE USER linkding WITH PASSWORD 'linkding123';
+        GRANT ALL PRIVILEGES ON DATABASE linkding TO linkding;
+
+metrics:
+  enabled: true
+  resources:
+    requests:
+      memory: 64Mi
+      cpu: 50m
+    limits:
+      memory: 128Mi
+      cpu: 100m

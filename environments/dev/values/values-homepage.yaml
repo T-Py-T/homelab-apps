@@ -1,0 +1,112 @@
+# Homepage Dashboard Values
+image:
+  repository: ghcr.io/gethomepage/homepage
+  tag: latest
+
+service:
+  main:
+    ports:
+      http:
+        port: 3000
+
+ingress:
+  main:
+    enabled: false  # We'll use Istio Gateway
+
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: homepage-config
+    mountPath: /app/config
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 100m
+  limits:
+    memory: 256Mi
+    cpu: 200m
+
+# Homepage configuration
+config:
+  bookmarks.yaml: |
+    ---
+    - Developer:
+        - Github:
+            - abbr: GH
+              href: https://github.com/
+        - ArgoCD:
+            - abbr: AC
+              href: http://argocd.dev.cluster.local
+
+  services.yaml: |
+    ---
+    - Infrastructure:
+        - ArgoCD:
+            href: http://argocd.dev.cluster.local
+            description: GitOps Continuous Delivery
+            icon: argocd.png
+        - Vault:
+            href: http://vault.dev.cluster.local
+            description: Secret Management
+            icon: vault.png
+        - Keycloak:
+            href: http://keycloak.dev.cluster.local
+            description: Identity Management
+            icon: keycloak.png
+    - Applications:
+        - CommaFeed:
+            href: http://commafeed.dev.cluster.local
+            description: RSS Reader
+            icon: rss.png
+        - n8n:
+            href: http://n8n.dev.cluster.local
+            description: Workflow Automation
+            icon: n8n.png
+        - Wallabag:
+            href: http://wallabag.dev.cluster.local
+            description: Read Later Service
+            icon: wallabag.png
+        - Linkding:
+            href: http://linkding.dev.cluster.local
+            description: Bookmark Manager
+            icon: linkding.png
+    - Monitoring:
+        - Grafana:
+            href: http://grafana.dev.cluster.local
+            description: Monitoring Dashboard
+            icon: grafana.png
+        - Prometheus:
+            href: http://prometheus.dev.cluster.local
+            description: Metrics Collection
+            icon: prometheus.png
+
+  settings.yaml: |
+    ---
+    title: Homelab Dashboard
+    theme: dark
+    color: slate
+    headerStyle: clean
+    layout:
+      Infrastructure:
+        style: row
+        columns: 3
+      Applications:
+        style: row
+        columns: 4
+      Monitoring:
+        style: row
+        columns: 2
+
+  widgets.yaml: |
+    ---
+    - search:
+        provider: duckduckgo
+        target: _blank
+    - datetime:
+        text_size: xl
+        format:
+          timeStyle: short
+          dateStyle: short
+          hourCycle: h23
