@@ -1,4 +1,4 @@
-# Istio Gateways and VirtualServices for Homelab Applications
+# Updated Istio Gateways and VirtualServices with Environment Support
 
 # Homepage Dashboard Gateway
 apiVersion: networking.istio.io/v1beta1
@@ -15,7 +15,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - homepage.dev.cluster.local
+    - homepage.dev.cluster.local  # Environment-specific
 
 ---
 apiVersion: networking.istio.io/v1beta1
@@ -25,7 +25,7 @@ metadata:
   namespace: dashboard
 spec:
   hosts:
-  - homepage.dev.cluster.local
+  - homepage.dev.cluster.local  # Environment-specific
   gateways:
   - homepage-gateway
   http:
@@ -54,7 +54,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - n8n.dev.cluster.local
+    - n8n.dev.cluster.local  # Environment-specific
 
 ---
 apiVersion: networking.istio.io/v1beta1
@@ -64,7 +64,7 @@ metadata:
   namespace: automation
 spec:
   hosts:
-  - n8n.dev.cluster.local
+  - n8n.dev.cluster.local  # Environment-specific
   gateways:
   - n8n-gateway
   http:
@@ -93,7 +93,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - wallabag.dev.cluster.local
+    - wallabag.dev.cluster.local  # Environment-specific
 
 ---
 apiVersion: networking.istio.io/v1beta1
@@ -103,7 +103,7 @@ metadata:
   namespace: reading
 spec:
   hosts:
-  - wallabag.dev.cluster.local
+  - wallabag.dev.cluster.local  # Environment-specific
   gateways:
   - wallabag-gateway
   http:
@@ -132,7 +132,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - commafeed.dev.cluster.local
+    - commafeed.dev.cluster.local  # Environment-specific
 
 ---
 apiVersion: networking.istio.io/v1beta1
@@ -142,7 +142,7 @@ metadata:
   namespace: rss
 spec:
   hosts:
-  - commafeed.dev.cluster.local
+  - commafeed.dev.cluster.local  # Environment-specific
   gateways:
   - commafeed-gateway
   http:
@@ -171,7 +171,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - linkding.dev.cluster.local
+    - linkding.dev.cluster.local  # Environment-specific
 
 ---
 apiVersion: networking.istio.io/v1beta1
@@ -181,7 +181,7 @@ metadata:
   namespace: bookmarks
 spec:
   hosts:
-  - linkding.dev.cluster.local
+  - linkding.dev.cluster.local  # Environment-specific
   gateways:
   - linkding-gateway
   http:

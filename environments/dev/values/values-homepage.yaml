@@ -1,4 +1,4 @@
-# Homepage Dashboard Values
+# Updated Homepage Dashboard Values with Environment Support
 image:
   repository: ghcr.io/gethomepage/homepage
   tag: latest
@@ -28,7 +28,7 @@ resources:
     memory: 256Mi
     cpu: 200m
 
-# Homepage configuration
+# Homepage configuration with environment-specific URLs
 config:
   bookmarks.yaml: |
     ---
@@ -84,7 +84,7 @@ config:
 
   settings.yaml: |
     ---
-    title: Homelab Dashboard
+    title: Homelab Dashboard (DEV)
     theme: dark
     color: slate
     headerStyle: clean

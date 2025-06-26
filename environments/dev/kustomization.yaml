@@ -10,7 +10,7 @@ helmCharts:
   version: 1.2.3
   releaseName: homepage
   namespace: dashboard
-  valuesFile: ../values/values-homepage.yaml
+  valuesFile: values/values-homepage.yaml
 
 # n8n Workflow Automation
 - name: n8n
@@ -18,7 +18,7 @@ helmCharts:
   version: 0.21.0
   releaseName: n8n
   namespace: automation
-  valuesFile: ../values/values-n8n.yaml
+  valuesFile: values/values-n8n.yaml
 
 # Wallabag Read-later Service
 - name: wallabag
@@ -26,23 +26,23 @@ helmCharts:
   version: 8.0.15
   releaseName: wallabag
   namespace: reading
-  valuesFile: ../values/values-wallabag.yaml
+  valuesFile: values/values-wallabag.yaml
 
 # CommaFeed RSS Reader - Using generic app chart
-- name: commafeed
+- name: app-template
   repo: https://bjw-s.github.io/helm-charts
   version: 2.4.0
   releaseName: commafeed
   namespace: rss
-  valuesFile: ../values/values-commafeed.yaml
+  valuesFile: values/values-commafeed.yaml
 
 # Linkding Bookmark Manager - Using generic app chart
-- name: linkding
+- name: app-template
   repo: https://bjw-s.github.io/helm-charts
   version: 2.4.0
   releaseName: linkding
   namespace: bookmarks
-  valuesFile: ../values/values-linkding.yaml
+  valuesFile: values/values-linkding.yaml
 
 # PostgreSQL for applications that need it
 - name: postgresql
@@ -50,7 +50,7 @@ helmCharts:
   version: 13.2.24
   releaseName: postgresql
   namespace: databases
-  valuesFile: ../values/values-postgresql.yaml
+  valuesFile: values/values-postgresql.yaml
 
 # Redis for caching
 - name: redis
@@ -58,11 +58,16 @@ helmCharts:
   version: 18.4.0
   releaseName: redis
   namespace: cache
-  valuesFile: ../values/values-redis.yaml
+  valuesFile: values/values-redis.yaml
 
 resources:
   - namespaces.yaml
   - istio-virtual-services.yaml
+  - external-secrets/postgresql-secret.yaml
+  - external-secrets/redis-secret.yaml
+  - external-secrets/n8n-secret.yaml
+  - external-secrets/wallabag-secret.yaml
+  - external-secrets/linkding-secret.yaml
 
 commonLabels:
   environment: dev

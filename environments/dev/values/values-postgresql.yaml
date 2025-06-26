@@ -1,8 +1,6 @@
-# PostgreSQL Database Values (shared by multiple apps)
+# Updated PostgreSQL with Environment-Specific Database Names
 auth:
   postgresPassword: postgres123
-  
-  # Create databases for different applications
   database: postgres
 
 primary:
@@ -18,21 +16,21 @@ primary:
     enabled: true
     size: 20Gi
 
-  # Initialize multiple databases
+  # Initialize databases with environment prefix
   initdb:
     scripts:
       01-create-databases.sql: |
-        CREATE DATABASE wallabag;
-        CREATE USER wallabag WITH PASSWORD 'wallabag123';
-        GRANT ALL PRIVILEGES ON DATABASE wallabag TO wallabag;
+        CREATE DATABASE dev_wallabag;
+        CREATE USER dev_wallabag WITH PASSWORD 'wallabag123';
+        GRANT ALL PRIVILEGES ON DATABASE dev_wallabag TO dev_wallabag;
         
-        CREATE DATABASE n8n;
-        CREATE USER n8n WITH PASSWORD 'n8n123';
-        GRANT ALL PRIVILEGES ON DATABASE n8n TO n8n;
+        CREATE DATABASE dev_n8n;
+        CREATE USER dev_n8n WITH PASSWORD 'n8n123';
+        GRANT ALL PRIVILEGES ON DATABASE dev_n8n TO dev_n8n;
         
-        CREATE DATABASE linkding;
-        CREATE USER linkding WITH PASSWORD 'linkding123';
-        GRANT ALL PRIVILEGES ON DATABASE linkding TO linkding;
+        CREATE DATABASE dev_linkding;
+        CREATE USER dev_linkding WITH PASSWORD 'linkding123';
+        GRANT ALL PRIVILEGES ON DATABASE dev_linkding TO dev_linkding;
 
 metrics:
   enabled: true

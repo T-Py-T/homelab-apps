@@ -1,4 +1,4 @@
-# Linkding Bookmark Manager Values (using bjw-s app-template)
+# Updated Linkding with Environment-Specific Configuration
 controllers:
   main:
     replicas: 1
@@ -15,8 +15,9 @@ controllers:
           LD_DISABLE_URL_VALIDATION: "False"
           LD_REQUEST_TIMEOUT: "60"
           LD_DB_ENGINE: postgresql
-          LD_DB_DATABASE: linkding
-          LD_DB_USER: linkding
+          # Environment-specific database configuration
+          LD_DB_DATABASE: dev_linkding
+          LD_DB_USER: dev_linkding
           LD_DB_PASSWORD: linkding123
           LD_DB_HOST: postgresql.databases.svc.cluster.local
           LD_DB_PORT: "5432"

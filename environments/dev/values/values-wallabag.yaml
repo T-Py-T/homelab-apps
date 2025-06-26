@@ -1,4 +1,4 @@
-# Wallabag Read-later Service Values
+# Updated Wallabag with Environment-Specific Configuration
 image:
   repository: wallabag/wallabag
   tag: latest
@@ -29,13 +29,13 @@ persistence:
 
 env:
   SYMFONY_ENV: prod
-  DOMAIN_NAME: "http://wallabag.dev.cluster.local"
+  DOMAIN_NAME: "http://wallabag.dev.cluster.local"  # Environment-specific
   FOSUSER_REGISTRATION: "false"
   FOSUSER_CONFIRMATION: "false"
   
-  # Database configuration
-  POSTGRES_DB: wallabag
-  POSTGRES_USER: wallabag
+  # Environment-specific database configuration
+  POSTGRES_DB: dev_wallabag
+  POSTGRES_USER: dev_wallabag
   POSTGRES_PASSWORD: wallabag123
   POSTGRES_HOST: postgresql.databases.svc.cluster.local
   POSTGRES_PORT: "5432"
